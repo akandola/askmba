@@ -127,10 +127,11 @@
       text-decoration: none;
     }
     .logo-grid img {
-      height: 36px;
+      height: 48px;
       width: auto;
-      max-width: 110px;
+      max-width: 130px;
       object-fit: contain;
+      mix-blend-mode: multiply;
       transition: transform 0.2s ease, opacity 0.2s ease;
       opacity: 0.9;
     }
@@ -173,6 +174,19 @@
       transition: box-shadow 0.2s ease;
     }
     .about-photo img:hover { box-shadow: 0 6px 24px rgba(0, 0, 0, 0.18); }
+    .about-links {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 12px;
+    }
+    .about-links a {
+      font-size: 0.82rem;
+      color: #888;
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+    .about-links a:hover { color: #111; }
     .about-text p { font-size: 0.96rem; }
     .about-logos { margin-top: 36px; }
 
@@ -226,7 +240,7 @@
 
     <!-- ── Hero ── -->
     <section class="card hero">
-      <h1>ASK MBA</h1>
+      <h1>ASK MBA Consulting</h1>
       <p class="tagline">Where your story becomes your strategy.</p>
       <p class="description">Personalized MBA admissions consulting to build a clear, compelling narrative for top programs.</p>
       <p class="italic-note">Especially helpful for candidates looking to translate complex or unconventional experiences into a focused story.</p>
@@ -264,7 +278,7 @@
       <ul class="helped-list">
         <li>Clarifying post-MBA career narrative and "why MBA now"</li>
         <li>Translating technical or complex experience into clear impact</li>
-        <li>Structuring and editing essays around a cohesive story</li>
+        <li>Structuring and editing essays and resumes around a cohesive story</li>
         <li>Preparing for interviews with strong positioning, mocks, and a 'what to expect'</li>
       </ul>
     </section>
@@ -278,6 +292,10 @@
           <a href="https://www.linkedin.com/in/akandola/" target="_blank" rel="noopener noreferrer">
             <img src="assets/me.jpeg" alt="Anmol Kandola" />
           </a>
+          <div class="about-links">
+            <a href="https://www.linkedin.com/in/akandola/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://substack.com/@anmolkandola" target="_blank" rel="noopener noreferrer">Substack</a>
+          </div>
         </div>
         <div class="about-text">
           <p>I'm currently an MBA student at Harvard Business School, exploring the intersection of technology, healthcare, and venture.</p>
@@ -288,7 +306,7 @@
       </div>
       <div class="about-logos logo-grid">
         <a href="https://www.hbs.edu" target="_blank" rel="noopener noreferrer"><img src="assets/logos/hbs.png"           alt="Harvard Business School" /></a>
-        <a href="https://www.columbia.edu" target="_blank" rel="noopener noreferrer"><img src="assets/logos/columbia.jpg"      alt="Columbia University" /></a>
+        <a href="https://www.college.columbia.edu/" target="_blank" rel="noopener noreferrer"><img src="assets/logos/columbia-undergrad.jpg" alt="Columbia University" /></a>
         <a href="https://www.amazon.com" target="_blank" rel="noopener noreferrer"><img src="assets/logos/amazon.jpg"         alt="Amazon" /></a>
         <a href="https://www.eliseai.com" target="_blank" rel="noopener noreferrer"><img src="assets/logos/eliseai.png"       alt="EliseAI" /></a>
         <a href="https://www.unohealth.com" target="_blank" rel="noopener noreferrer"><img src="assets/logos/uno-health.jpeg"  alt="Uno Health" /></a>
