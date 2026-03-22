@@ -129,13 +129,16 @@
     .logo-grid img {
       height: 48px;
       width: auto;
-      max-width: 130px;
+      max-width: 200px;
       object-fit: contain;
       mix-blend-mode: multiply;
       transition: transform 0.2s ease, opacity 0.2s ease;
       opacity: 0.9;
     }
     .logo-grid a:hover img { opacity: 1; transform: scale(1.06); }
+    /* Per-logo height tweaks for files with heavy baked-in whitespace */
+    .logo-grid img[alt="Amazon"]        { height: 80px; }
+    .logo-grid img[alt="Chicago Booth"] { height: 72px; }
 
     /* ── Testimonials placeholder ── */
     .testimonial-placeholder {
