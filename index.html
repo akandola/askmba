@@ -335,28 +335,29 @@
     .school-name {
       position: absolute;
       left: 50%;
-      font-weight: 700;
+      font-weight: 500;
       font-size: clamp(1.0rem, 2.2vw, 1.8rem);
-      letter-spacing: 0.06em;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
       white-space: nowrap;
       pointer-events: none;
       opacity: 0;
     }
-    .school-name.fly-right { animation-name: schoolFlyRight; animation-timing-function: ease-in; animation-fill-mode: forwards; }
-    .school-name.fly-left  { animation-name: schoolFlyLeft;  animation-timing-function: ease-in; animation-fill-mode: forwards; }
+    .school-name.fly-right { animation-name: schoolFlyRight; animation-timing-function: ease-in-out; animation-fill-mode: forwards; }
+    .school-name.fly-left  { animation-name: schoolFlyLeft;  animation-timing-function: ease-in-out; animation-fill-mode: forwards; }
     @keyframes schoolFlyRight {
-      0%   { transform: translateX(5%)   scale(0.26); opacity: 0;    }
-      18%  { transform: translateX(12%)  scale(0.52); opacity: 1;    }
-      55%  { transform: translateX(44%)  scale(1.0);  opacity: 1;    }
-      80%  { transform: translateX(88%)  scale(1.55); opacity: 0.32; }
-      100% { transform: translateX(118%) scale(2.0);  opacity: 0;    }
+      0%   { transform: translateX(5%)  scale(0.52); opacity: 0;   }
+      20%  { transform: translateX(14%) scale(0.72); opacity: 1;   }
+      52%  { transform: translateX(40%) scale(1.0);  opacity: 1;   }
+      80%  { transform: translateX(75%) scale(1.28); opacity: 0.4; }
+      100% { transform: translateX(98%) scale(1.45); opacity: 0;   }
     }
     @keyframes schoolFlyLeft {
-      0%   { transform: translateX(-105%) scale(0.26); opacity: 0;    }
-      18%  { transform: translateX(-112%) scale(0.52); opacity: 1;    }
-      55%  { transform: translateX(-144%) scale(1.0);  opacity: 1;    }
-      80%  { transform: translateX(-188%) scale(1.55); opacity: 0.32; }
-      100% { transform: translateX(-218%) scale(2.0);  opacity: 0;    }
+      0%   { transform: translateX(-105%) scale(0.52); opacity: 0;   }
+      20%  { transform: translateX(-114%) scale(0.72); opacity: 1;   }
+      52%  { transform: translateX(-140%) scale(1.0);  opacity: 1;   }
+      80%  { transform: translateX(-175%) scale(1.28); opacity: 0.4; }
+      100% { transform: translateX(-198%) scale(1.45); opacity: 0;   }
     }
     #portal {
       position: absolute;
@@ -673,8 +674,8 @@
         { name: 'NYU Stern',                color: '#B44FFF', side: 'left',  yPct: 55 },
       ];
 
-      var NAME_DUR      = 580;  // ms each name animation lasts
-      var NAME_INTERVAL = 360;  // ms between names launching
+      var NAME_DUR      = 850;  // ms each name animation lasts
+      var NAME_INTERVAL = 460;  // ms between names launching
       var NAME_START    = 500;  // ms after click before first name
 
       /* Phase 1: warp burst */
@@ -700,12 +701,9 @@
           el.style.top = school.yPct + '%';
           el.style.animationDuration = NAME_DUR + 'ms';
           el.style.textShadow = [
-            '0 0 7px #fff',
-            '0 0 10px #fff',
-            '0 0 21px ' + school.color,
-            '0 0 42px ' + school.color,
-            '0 0 82px ' + school.color,
-            '0 0 100px ' + school.color
+            '0 0 6px rgba(255,255,255,0.55)',
+            '0 0 18px ' + school.color,
+            '0 0 40px ' + school.color + '70'
           ].join(', ');
           splash.appendChild(el);
           setTimeout(function () { if (el.parentNode) el.remove(); }, NAME_DUR + 80);
