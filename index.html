@@ -192,6 +192,25 @@
     .about-links a:hover { color: #111; }
     .about-text p { font-size: 0.96rem; }
     .about-logos { margin-top: 36px; }
+    .logo-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .logo-group-row {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+    .logo-group-label {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #aaa;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      min-width: 180px;
+    }
 
     /* ── How I Work items ── */
     .work-items {
@@ -264,7 +283,7 @@
         <a href="https://www.chicagobooth.edu" target="_blank" rel="noopener noreferrer"><img src="assets/logos/booth.jpeg"   alt="Chicago Booth" /></a>
         <a href="https://www.stern.nyu.edu" target="_blank" rel="noopener noreferrer"><img src="assets/logos/stern.png"    alt="NYU Stern" /></a>
         <a href="https://www.tuck.dartmouth.edu" target="_blank" rel="noopener noreferrer"><img src="assets/logos/tuck.png"     alt="Tuck at Dartmouth" /></a>
-        <a href="https://www.som.yale.edu" target="_blank" rel="noopener noreferrer"><img src="assets/logos/yale-som.png" alt="Yale SOM" /></a>
+        <a href="https://www.som.yale.edu" target="_blank" rel="noopener noreferrer"><img src="assets/logos/yale-som.jpeg" alt="Yale SOM" /></a>
       </div>
       <p>Many of these applicants came in with strong backgrounds, but unclear narratives.</p>
     </section>
@@ -307,14 +326,29 @@
           <p>I approached my own MBA with a clear, deliberate story — and that's the same lens I bring to helping applicants.</p>
         </div>
       </div>
-      <div class="about-logos logo-grid">
-        <a href="https://www.hbs.edu" target="_blank" rel="noopener noreferrer"><img src="assets/logos/hbs.png"           alt="Harvard Business School" /></a>
-        <a href="https://www.college.columbia.edu/" target="_blank" rel="noopener noreferrer"><img src="assets/logos/columbia-undergrad.jpg" alt="Columbia University" /></a>
-        <a href="https://www.amazon.com" target="_blank" rel="noopener noreferrer"><img src="assets/logos/amazon.png"         alt="Amazon" /></a>
-        <a href="https://www.eliseai.com" target="_blank" rel="noopener noreferrer"><img src="assets/logos/eliseai.png"       alt="EliseAI" /></a>
-        <a href="https://www.unohealth.com" target="_blank" rel="noopener noreferrer"><img src="assets/logos/uno-health.jpeg"  alt="Uno Health" /></a>
-        <a href="https://www.jiminihealth.com" target="_blank" rel="noopener noreferrer"><img src="assets/logos/jimini.png"   alt="Jimini Health" /></a>
-        <a href="https://lifex.vc" target="_blank" rel="noopener noreferrer"><img src="assets/logos/lifex.jpeg"              alt="LifeX" /></a>
+      <div class="about-logos logo-group">
+        <div class="logo-group-row">
+          <span class="logo-group-label">At HBS: Operator + Venture</span>
+          <div class="logo-grid" style="margin:0;">
+            <a href="https://www.hbs.edu" target="_blank" rel="noopener noreferrer"><img src="assets/logos/hbs.png" alt="Harvard Business School" /></a>
+            <a href="https://www.jiminihealth.com" target="_blank" rel="noopener noreferrer"><img src="assets/logos/jimini.png" alt="Jimini Health" /></a>
+            <a href="https://lifex.vc" target="_blank" rel="noopener noreferrer"><img src="assets/logos/lifex.jpeg" alt="LifeX" /></a>
+          </div>
+        </div>
+        <div class="logo-group-row">
+          <span class="logo-group-label">Startup Operator</span>
+          <div class="logo-grid" style="margin:0;">
+            <a href="https://www.eliseai.com" target="_blank" rel="noopener noreferrer"><img src="assets/logos/eliseai.png" alt="EliseAI" /></a>
+            <a href="https://www.unohealth.com" target="_blank" rel="noopener noreferrer"><img src="assets/logos/uno-health.jpeg" alt="Uno Health" /></a>
+          </div>
+        </div>
+        <div class="logo-group-row">
+          <span class="logo-group-label">Early Career</span>
+          <div class="logo-grid" style="margin:0;">
+            <a href="https://www.college.columbia.edu/" target="_blank" rel="noopener noreferrer"><img src="assets/logos/columbia-undergrad.jpg" alt="Columbia University" /></a>
+            <a href="https://www.amazon.com" target="_blank" rel="noopener noreferrer"><img src="assets/logos/amazon.jpg" alt="Amazon" /></a>
+          </div>
+        </div>
       </div>
     </section>
 
