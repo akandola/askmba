@@ -674,21 +674,30 @@
         { name: 'NYU Stern',                color: '#B44FFF', side: 'left',  yPct: 55 },
       ];
 
-      var NAME_DUR      = 850;  // ms each name animation lasts
-      var NAME_INTERVAL = 460;  // ms between names launching
+      var NAME_DUR      = 720;  // ms each name animation lasts
+      var NAME_INTERVAL = 410;  // ms between names launching
       var NAME_START    = 500;  // ms after click before first name
 
-      /* Phase 1: warp burst */
+      /* Phase 1: warp burst → cruise → taper on portal */
       var rampUp = setInterval(function () {
-        warpFactor = Math.min(1, warpFactor + 0.07);
+        warpFactor = Math.min(1, warpFactor + 0.08);
       }, 20);
+      // After burst, settle to a sustained cruise level while names fly by
       setTimeout(function () {
         clearInterval(rampUp);
+        var toCruise = setInterval(function () {
+          warpFactor = Math.max(0.3, warpFactor - 0.04);
+          if (warpFactor <= 0.3) clearInterval(toCruise);
+        }, 25);
+      }, 380);
+      // Ramp down to 0 when portal opens
+      var warpEndDelay = NAME_START + SCHOOLS.length * NAME_INTERVAL + 60;
+      setTimeout(function () {
         var rampDown = setInterval(function () {
-          warpFactor = Math.max(0, warpFactor - 0.05);
+          warpFactor = Math.max(0, warpFactor - 0.04);
           if (warpFactor === 0) clearInterval(rampDown);
         }, 30);
-      }, 560);
+      }, warpEndDelay);
 
       /* Phase 2: school names */
       SCHOOLS.forEach(function (school, i) {
@@ -712,7 +721,7 @@
 
       /* Phase 3: portal expand → landing */
       var portalDelay = NAME_START + SCHOOLS.length * NAME_INTERVAL + 80;
-      // Total: 500 + 3600 + 80 = 4180ms portal start + 850ms expand = ~5030ms ✓
+      // Total: 500 + 10×410 + 80 = 4680ms portal start + 850ms expand = ~5530ms ✓
       setTimeout(function () {
         if (!document.getElementById('splash')) return;
         skipEnabled = false;
