@@ -346,18 +346,18 @@
     .school-name.fly-right { animation-name: schoolFlyRight; animation-timing-function: ease-in-out; animation-fill-mode: forwards; }
     .school-name.fly-left  { animation-name: schoolFlyLeft;  animation-timing-function: ease-in-out; animation-fill-mode: forwards; }
     @keyframes schoolFlyRight {
-      0%   { transform: translateX(5%)  scale(0.52); opacity: 0;   }
-      20%  { transform: translateX(14%) scale(0.72); opacity: 1;   }
-      52%  { transform: translateX(40%) scale(1.0);  opacity: 1;   }
-      80%  { transform: translateX(75%) scale(1.28); opacity: 0.4; }
-      100% { transform: translateX(98%) scale(1.45); opacity: 0;   }
+      0%   { transform: translateX(5%)   scale(0.52); opacity: 0;    }
+      18%  { transform: translateX(13%)  scale(0.70); opacity: 1;    }
+      50%  { transform: translateX(38%)  scale(1.0);  opacity: 1;    }
+      78%  { transform: translateX(78%)  scale(1.65); opacity: 0.45; }
+      100% { transform: translateX(108%) scale(2.1);  opacity: 0;    }
     }
     @keyframes schoolFlyLeft {
-      0%   { transform: translateX(-105%) scale(0.52); opacity: 0;   }
-      20%  { transform: translateX(-114%) scale(0.72); opacity: 1;   }
-      52%  { transform: translateX(-140%) scale(1.0);  opacity: 1;   }
-      80%  { transform: translateX(-175%) scale(1.28); opacity: 0.4; }
-      100% { transform: translateX(-198%) scale(1.45); opacity: 0;   }
+      0%   { transform: translateX(-105%) scale(0.52); opacity: 0;    }
+      18%  { transform: translateX(-113%) scale(0.70); opacity: 1;    }
+      50%  { transform: translateX(-138%) scale(1.0);  opacity: 1;    }
+      78%  { transform: translateX(-178%) scale(1.65); opacity: 0.45; }
+      100% { transform: translateX(-208%) scale(2.1);  opacity: 0;    }
     }
     #portal {
       position: absolute;
@@ -674,8 +674,8 @@
         { name: 'NYU Stern',                color: '#B44FFF', side: 'left',  yPct: 55 },
       ];
 
-      var NAME_DUR      = 720;  // ms each name animation lasts
-      var NAME_INTERVAL = 410;  // ms between names launching
+      var NAME_DUR      = 640;  // ms each name animation lasts
+      var NAME_INTERVAL = 375;  // ms between names launching
       var NAME_START    = 500;  // ms after click before first name
 
       /* Phase 1: warp burst → cruise → taper on portal */
