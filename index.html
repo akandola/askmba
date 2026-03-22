@@ -171,6 +171,48 @@
     }
     .helped-list li { color: #444; }
 
+    /* ── Helped 2-col layout ── */
+    .helped-layout {
+      display: flex;
+      gap: 0;
+      align-items: flex-start;
+      margin-top: 4px;
+    }
+    .helped-col { flex: 1; }
+    .helped-col + .helped-col {
+      margin-left: 36px;
+      padding-left: 36px;
+      border-left: 1px solid #eeeeff;
+    }
+    .helped-col-label {
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: #bbb;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 12px;
+    }
+    .backgrounds-list {
+      padding-left: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+    .backgrounds-list li {
+      color: #555;
+      font-size: 0.93rem;
+      padding-left: 18px;
+      position: relative;
+      margin-bottom: 0;
+    }
+    .backgrounds-list li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: #ccc;
+    }
+
     /* ── About ── */
     .about-layout {
       display: flex;
@@ -380,6 +422,15 @@
       h1 { font-size: 2.4rem; }
       .about-layout { flex-direction: column; align-items: center; text-align: center; }
       .about-photo { margin-bottom: 4px; }
+      .helped-layout { flex-direction: column; }
+      .helped-col + .helped-col {
+        margin-left: 0;
+        padding-left: 0;
+        border-left: none;
+        border-top: 1px solid #eeeeff;
+        padding-top: 22px;
+        margin-top: 22px;
+      }
     }
   </style>
 </head>
@@ -421,7 +472,7 @@
         <a href="https://www.tuck.dartmouth.edu" target="_blank" rel="noopener noreferrer"><img src="assets/logos/tuck.png"     alt="Tuck at Dartmouth" /></a>
         <a href="https://www.som.yale.edu" target="_blank" rel="noopener noreferrer"><img src="assets/logos/yale-som.jpeg" alt="Yale SOM" /></a>
       </div>
-      <p>Many of these applicants came in with strong backgrounds, but unclear narratives.</p>
+      <p>Many of these applicants came in with strong backgrounds, but unclear narratives. Getting specific about post-MBA goals first unlocked how to position their background — building a story that felt authentic and showed genuine urgency and commitment.</p>
     </section>
 
     <!-- ── Testimonials ── -->
@@ -433,12 +484,27 @@
     <!-- ── How I've Helped ── -->
     <section class="card">
       <h2>How I've helped applicants</h2>
-      <ul class="helped-list">
-        <li>Clarifying post-MBA career narrative and "why MBA now"</li>
-        <li>Translating technical or complex experience into clear impact</li>
-        <li>Structuring and editing essays and resumes around a cohesive story</li>
-        <li>Preparing for interviews with strong positioning, mocks, and a 'what to expect'</li>
-      </ul>
+      <div class="helped-layout">
+        <div class="helped-col">
+          <p class="helped-col-label">Backgrounds I've worked with</p>
+          <ul class="backgrounds-list">
+            <li>MBB &amp; strategy consulting</li>
+            <li>Tech consulting</li>
+            <li>Software engineering &amp; product management</li>
+            <li>Corporate &amp; Fortune 500</li>
+            <li>First-generation / low-income applicants</li>
+          </ul>
+        </div>
+        <div class="helped-col">
+          <p class="helped-col-label">How I help</p>
+          <ul class="helped-list">
+            <li>Clarifying post-MBA career narrative and "why MBA now"</li>
+            <li>Translating technical or complex experience into clear impact</li>
+            <li>Structuring and editing essays and resumes around a cohesive story</li>
+            <li>Preparing for interviews with strong positioning, mocks, and a 'what to expect'</li>
+          </ul>
+        </div>
+      </div>
     </section>
 
     <!-- ── About Me ── -->
@@ -457,7 +523,7 @@
         </div>
         <div class="about-text">
           <p>I'm currently an MBA student at Harvard Business School, exploring the intersection of technology, healthcare, and venture.</p>
-          <p>Before business school, I studied Computer Science at Columbia as a first-generation college student, then started my career as a software engineer at Amazon before transitioning into product management at EliseAI and Uno Health.</p>
+          <p>Before business school, I studied Computer Science at Columbia, then started my career as a software engineer at Amazon before transitioning into product management at EliseAI and Uno Health.</p>
           <p>At HBS, I've put that intentionality into practice: working at a mental healthcare x AI startup (Jimini Health), interning at a venture capital firm (LifeX), and helping organize the VC/PE conference and tech treks to companies like Anthropic, Ramp, and Glean.</p>
           <p>I approached my own MBA with a clear, deliberate story — and that's the same lens I bring to helping applicants.</p>
         </div>
@@ -680,7 +746,7 @@
 
       /* Phase 1: warp burst → cruise → taper on portal */
       var rampUp = setInterval(function () {
-        warpFactor = Math.min(1, warpFactor + 0.08);
+        warpFactor = Math.min(1, warpFactor + 0.05);
       }, 20);
       // After burst, settle to a sustained cruise level while names fly by
       setTimeout(function () {
