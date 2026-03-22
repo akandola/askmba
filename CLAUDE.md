@@ -13,7 +13,7 @@ Static website for ASK MBA Consulting. Single-page HTML/CSS — no framework, no
 
 Tagline: *where your story becomes your super power*
 
-**TODO:** Add contact email section when ready.
+Contact email: anmol@askmbaconsulting.com (footer added to index.html).
 
 ## Running Locally
 Open `index.html` directly in a browser — no server required.
