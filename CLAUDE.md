@@ -11,7 +11,7 @@
 ## Project Overview
 Static website for ASK MBA Consulting. Single-page HTML/CSS — no framework, no build step.
 
-Tagline: *where your story becomes your strategy*
+Tagline: *where your story becomes your super power*
 
 **TODO:** Add contact email section when ready.
 
