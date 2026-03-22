@@ -686,8 +686,8 @@
       setTimeout(function () {
         clearInterval(rampUp);
         var toCruise = setInterval(function () {
-          warpFactor = Math.max(0.3, warpFactor - 0.04);
-          if (warpFactor <= 0.3) clearInterval(toCruise);
+          warpFactor = Math.max(0.68, warpFactor - 0.04);
+          if (warpFactor <= 0.68) clearInterval(toCruise);
         }, 25);
       }, 380);
       // Ramp down to 0 when portal opens
