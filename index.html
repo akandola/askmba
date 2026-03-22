@@ -272,6 +272,106 @@
     }
     .site-footer a:hover { color: #111; }
 
+    /* ── Intro Splash ── */
+    #splash {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: #07070f;
+      overflow: hidden;
+      cursor: default;
+    }
+    #splash-canvas {
+      position: absolute;
+      inset: 0;
+      display: block;
+    }
+    #splash-ui {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      transition: opacity 0.3s ease;
+    }
+    #splash-brand {
+      font-size: clamp(2.2rem, 6vw, 4rem);
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.1em;
+      margin: 0;
+      text-shadow: 0 0 40px rgba(255,255,255,0.35);
+    }
+    #splash-tag {
+      font-size: clamp(0.8rem, 1.8vw, 1rem);
+      color: rgba(255,255,255,0.4);
+      font-style: italic;
+      letter-spacing: 0.04em;
+      margin: 0;
+    }
+    #enter-btn {
+      margin-top: 28px;
+      background: transparent;
+      color: #fff;
+      border: 1.5px solid rgba(255,255,255,0.45);
+      border-radius: 12px;
+      padding: 14px 38px;
+      font-family: 'Roboto', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+      box-shadow: 0 0 20px rgba(255,255,255,0.08);
+    }
+    #enter-btn:hover {
+      border-color: rgba(255,255,255,0.85);
+      box-shadow: 0 0 32px rgba(255,255,255,0.22);
+      transform: scale(1.04);
+    }
+    #enter-btn:active { transform: scale(0.97); }
+    .school-name {
+      position: absolute;
+      left: 50%;
+      font-weight: 700;
+      font-size: clamp(1.0rem, 2.2vw, 1.8rem);
+      letter-spacing: 0.06em;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+    }
+    .school-name.fly-right { animation-name: schoolFlyRight; animation-timing-function: ease-in; animation-fill-mode: forwards; }
+    .school-name.fly-left  { animation-name: schoolFlyLeft;  animation-timing-function: ease-in; animation-fill-mode: forwards; }
+    @keyframes schoolFlyRight {
+      0%   { transform: translateX(5%)   scale(0.26); opacity: 0;    }
+      18%  { transform: translateX(12%)  scale(0.52); opacity: 1;    }
+      55%  { transform: translateX(44%)  scale(1.0);  opacity: 1;    }
+      80%  { transform: translateX(88%)  scale(1.55); opacity: 0.32; }
+      100% { transform: translateX(118%) scale(2.0);  opacity: 0;    }
+    }
+    @keyframes schoolFlyLeft {
+      0%   { transform: translateX(-105%) scale(0.26); opacity: 0;    }
+      18%  { transform: translateX(-112%) scale(0.52); opacity: 1;    }
+      55%  { transform: translateX(-144%) scale(1.0);  opacity: 1;    }
+      80%  { transform: translateX(-188%) scale(1.55); opacity: 0.32; }
+      100% { transform: translateX(-218%) scale(2.0);  opacity: 0;    }
+    }
+    #portal {
+      position: absolute;
+      left: 50%; top: 50%;
+      width: 120px; height: 120px;
+      margin: -60px 0 0 -60px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #ffffff 0%, #fffff8 25%, rgba(255,255,220,0.55) 58%, transparent 80%);
+      transform: scale(0);
+      transition: transform 0.85s cubic-bezier(0.19, 1, 0.22, 1);
+      pointer-events: none;
+    }
+    #portal.open { transform: scale(42); }
+    body.splash-active { overflow: hidden; }
+
     /* ── Mobile ── */
     @media (max-width: 640px) {
       body { padding: 24px 16px 60px; }
@@ -283,6 +383,17 @@
   </style>
 </head>
 <body>
+  <!-- ── Intro Splash ── -->
+  <div id="splash">
+    <canvas id="splash-canvas"></canvas>
+    <div id="splash-ui">
+      <p id="splash-brand">ASK MBA</p>
+      <p id="splash-tag">where your story becomes your super power</p>
+      <button id="enter-btn">Enter &rarr;</button>
+    </div>
+    <div id="portal"></div>
+  </div>
+
   <div class="container">
 
     <!-- ── Hero ── -->
@@ -428,5 +539,191 @@
     <p>Can't find a time that works, or just have a question? Reach me at <a href="mailto:anmol@askmbaconsulting.com">anmol@askmbaconsulting.com</a></p>
   </footer>
 
+  <script>
+  (function () {
+    var THIRTY_DAYS = 30 * 24 * 60 * 60 * 1000;
+    var LS_KEY = 'askmba_intro';
+
+    function hasSeen() {
+      var ts = localStorage.getItem(LS_KEY);
+      return ts && (Date.now() - parseInt(ts, 10)) < THIRTY_DAYS;
+    }
+    function markSeen() {
+      localStorage.setItem(LS_KEY, Date.now().toString());
+    }
+
+    var splash = document.getElementById('splash');
+    if (!splash) return;
+
+    if (hasSeen()) { splash.remove(); return; }
+
+    document.body.classList.add('splash-active');
+
+    /* ── Starfield ── */
+    var canvas = document.getElementById('splash-canvas');
+    var ctx = canvas.getContext('2d');
+    var stars = [];
+    var warpFactor = 0;
+    var animId;
+
+    function buildStars() {
+      stars = [];
+      var w = canvas.width, h = canvas.height;
+      var maxR = Math.sqrt(w * w + h * h) / 2;
+      for (var i = 0; i < 165; i++) {
+        stars.push({
+          angle:     Math.random() * Math.PI * 2,
+          radius:    Math.random() * maxR,
+          size:      Math.random() * 1.7 + 0.4,
+          speed:     Math.random() * 0.32 + 0.14,
+          warpSpeed: Math.random() * 22 + 12,
+          opacity:   Math.random() * 0.55 + 0.3
+        });
+      }
+    }
+
+    function resizeCanvas() {
+      canvas.width  = window.innerWidth;
+      canvas.height = window.innerHeight;
+      buildStars();
+    }
+
+    function drawFrame() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      var cx = canvas.width / 2, cy = canvas.height / 2;
+      var maxR = Math.sqrt(cx * cx + cy * cy) + 60;
+      for (var i = 0; i < stars.length; i++) {
+        var s = stars[i];
+        var spd = s.speed + (s.warpSpeed - s.speed) * warpFactor;
+        s.radius += spd;
+        if (s.radius > maxR) s.radius = 4 + Math.random() * 25;
+        var x = cx + Math.cos(s.angle) * s.radius;
+        var y = cy + Math.sin(s.angle) * s.radius;
+        if (warpFactor > 0.35) {
+          var tail = spd * 4;
+          var tx = cx + Math.cos(s.angle) * (s.radius - tail);
+          var ty = cy + Math.sin(s.angle) * (s.radius - tail);
+          var g = ctx.createLinearGradient(tx, ty, x, y);
+          g.addColorStop(0, 'rgba(255,255,255,0)');
+          g.addColorStop(1, 'rgba(255,255,255,' + s.opacity + ')');
+          ctx.beginPath(); ctx.strokeStyle = g; ctx.lineWidth = s.size;
+          ctx.moveTo(tx, ty); ctx.lineTo(x, y); ctx.stroke();
+        } else {
+          ctx.beginPath();
+          ctx.fillStyle = 'rgba(255,255,255,' + s.opacity + ')';
+          ctx.arc(x, y, s.size, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+      animId = requestAnimationFrame(drawFrame);
+    }
+
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+    drawFrame();
+
+    /* ── Skip to landing ── */
+    function skipToLanding() {
+      if (!document.getElementById('splash')) return;
+      markSeen();
+      cancelAnimationFrame(animId);
+      var flash = document.createElement('div');
+      flash.style.cssText = 'position:fixed;inset:0;background:#fff;z-index:10000;pointer-events:none;';
+      document.body.appendChild(flash);
+      setTimeout(function () {
+        splash.remove();
+        document.body.classList.remove('splash-active');
+        flash.style.transition = 'opacity 0.3s ease';
+        flash.style.opacity = '0';
+        setTimeout(function () { flash.remove(); }, 320);
+      }, 180);
+    }
+
+    /* ── Enter button ── */
+    var animating = false;
+    document.getElementById('enter-btn').addEventListener('click', function (e) {
+      e.stopPropagation();
+      if (animating) return;
+      animating = true;
+      runAnimation();
+    });
+
+    /* ── Click-to-skip handler ── */
+    var skipEnabled = false;
+    splash.addEventListener('click', function () { if (skipEnabled) skipToLanding(); });
+
+    /* ── Main animation ── */
+    function runAnimation() {
+      var ui = document.getElementById('splash-ui');
+      ui.style.transition = 'opacity 0.28s ease';
+      ui.style.opacity = '0';
+      setTimeout(function () { ui.style.display = 'none'; }, 300);
+      setTimeout(function () { skipEnabled = true; }, 380);
+
+      var SCHOOLS = [
+        { name: 'HBS',                      color: '#FF2D55', side: 'right', yPct: 41 },
+        { name: 'GSB',                      color: '#FF7040', side: 'left',  yPct: 49 },
+        { name: 'Wharton',                  color: '#4488FF', side: 'right', yPct: 45 },
+        { name: 'Kellogg',                  color: '#CC44FF', side: 'left',  yPct: 39 },
+        { name: 'Chicago Booth',            color: '#FF9500', side: 'right', yPct: 53 },
+        { name: 'Columbia Business School', color: '#40BFFF', side: 'left',  yPct: 47 },
+        { name: 'MIT Sloan',                color: '#FF3366', side: 'right', yPct: 43 },
+        { name: 'Tuck',                     color: '#00EF6F', side: 'left',  yPct: 51 },
+        { name: 'Yale SOM',                 color: '#3399FF', side: 'right', yPct: 37 },
+        { name: 'NYU Stern',                color: '#B44FFF', side: 'left',  yPct: 55 },
+      ];
+
+      var NAME_DUR      = 580;  // ms each name animation lasts
+      var NAME_INTERVAL = 360;  // ms between names launching
+      var NAME_START    = 500;  // ms after click before first name
+
+      /* Phase 1: warp burst */
+      var rampUp = setInterval(function () {
+        warpFactor = Math.min(1, warpFactor + 0.07);
+      }, 20);
+      setTimeout(function () {
+        clearInterval(rampUp);
+        var rampDown = setInterval(function () {
+          warpFactor = Math.max(0, warpFactor - 0.05);
+          if (warpFactor === 0) clearInterval(rampDown);
+        }, 30);
+      }, 560);
+
+      /* Phase 2: school names */
+      SCHOOLS.forEach(function (school, i) {
+        setTimeout(function () {
+          if (!document.getElementById('splash')) return;
+          var el = document.createElement('div');
+          el.className = 'school-name fly-' + school.side;
+          el.textContent = school.name;
+          el.style.color = school.color;
+          el.style.top = school.yPct + '%';
+          el.style.animationDuration = NAME_DUR + 'ms';
+          el.style.textShadow = [
+            '0 0 7px #fff',
+            '0 0 10px #fff',
+            '0 0 21px ' + school.color,
+            '0 0 42px ' + school.color,
+            '0 0 82px ' + school.color,
+            '0 0 100px ' + school.color
+          ].join(', ');
+          splash.appendChild(el);
+          setTimeout(function () { if (el.parentNode) el.remove(); }, NAME_DUR + 80);
+        }, NAME_START + i * NAME_INTERVAL);
+      });
+
+      /* Phase 3: portal expand → landing */
+      var portalDelay = NAME_START + SCHOOLS.length * NAME_INTERVAL + 80;
+      // Total: 500 + 3600 + 80 = 4180ms portal start + 850ms expand = ~5030ms ✓
+      setTimeout(function () {
+        if (!document.getElementById('splash')) return;
+        skipEnabled = false;
+        document.getElementById('portal').classList.add('open');
+        setTimeout(skipToLanding, 850);
+      }, portalDelay);
+    }
+
+  }());
+  </script>
 </body>
 </html>
